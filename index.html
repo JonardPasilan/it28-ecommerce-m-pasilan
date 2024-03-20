@@ -3,66 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Shop</title>
+</head>
 <body>
-<style>
-    table{
-        width: 100%;
-        border-collapse:collapse ;
-    }
-    th, td {
-        border: 1px;
-        padding: 8px;
-        text-align: left;
-    }
-    th{
-        background-color: rgb(149, 67, 67);
-    }
-    </style>
-    </head>
-    <h2>Product Inventory</h2>
+    <h1>NARD STORE</h1> 
     <table>
         <thead>
             <tr>
-                <th>Produc 1</th>
+                <th>Product Name</th>
                 <th>Price</th>
-                <th>Quantity</th>
+                <th>Available Quantity</th>
+                <th>Product Picture</th>
+                <th>Availability</th>
+                <th>Buy</th> <!-- Added column for action buttons -->
             </tr>
         </thead>
-    <tbody>
-        <tr>
-            <td>Super Crunch</td>
-            <td>₱1.00</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <th>Product 2</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
-        <tr>
-            <td>Yasui</td>
-            <td>₱1.00</td>
-            <td>5</td>
-        </tr>
-        <tr>
-            <tr>
-                <th>Product 3</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-            <td>Sasas</td>
-            <td>₱1.00</td>
-            <td>5</td>
-        </tr>
-
-
-
-
-
-
-
-
-
+        <tbody id="inventory">
+            
+        </tbody>
     </table>
- </body>
+
+    <script>
+        var products = [
+            { name: "Tecno Pova 6 pro", price:12000, quantity: 10, picture: "https://fdn2.gsmarena.com/vv/bigpic/tecno-pova-6-pro-11.jpg" },
+            { name: "Lenovo GM2 Pro", price: 589, quantity: 20, picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjcSQmTaBdHjv3jSp_ENr3zyzkjI7EoHaJAX7dtIUTq5R7AZqTfJDMpUcwmW6AqT9ppHw&usqp=CAU" },
+            { name: "Finger Sleeve", price: 50, quantity: 30, picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo0smrIhKl0z_NZ9QrDuxeh7124sSjQL9XPA&usqp=CAU" }
+        ];
+
+        function displayProducts() {
+            var inventoryTbody = document.getElementById("inventory");
+            inventoryTbody.innerHTML = ""; 
+
+            products.forEach(function(product) {
+                var row = document.createElement("tr");
+
+                var nameCell = document.createElement("td");
+                nameCell.textContent = product.name;
+                row.appendChild(nameCell);
+
+                var priceCell = document.createElement("td");
+                priceCell.textContent = "₱" + product.price;
+                row.appendChild(priceCell);
+
+                var quantityCell = document.createElement("td");
+                quantityCell.textContent = product.quantity;
+                row.appendChild(quantityCell);
+
+                var pictureCell = document.createElement("td");
+                var img = document.createElement("img");
+                img.src = product.picture;
+                pictureCell.appendChild(img);
+                row.appendChild(pictureCell);
+
+                var availabilityCell = document.createElement("td");
+                availabilityCell.textContent = product.quantity > 0 ? "Available" : "Out of Stock";
+                row.appendChild(availabilityCell);
+
+                var actionCell = document.createElement("td");
+                var buyButton = document.createElement("a");
+                buyButton.href = "payment.html";
+                buyButton.className = "btn btn-primary";
+                buyButton.textContent = "Buy";
+                actionCell.appendChild(buyButton);
+                row.appendChild(actionCell);
+
+                inventoryTbody.appendChild(row);
+            });
+        }
+
+        window.onload = function() {
+            displayProducts();
+        };
+    </script>
+</body>
 </html>
